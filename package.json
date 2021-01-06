@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "exceljs": "^4.2.0",
     "nodemon": "^2.0.7"
   },
   "devDependencies": {},
