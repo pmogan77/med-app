@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8 />
+    <link rel="stylesheet" type="text/css" href="./main.css" />
+  </head>
+  <body>
+    <div id="viewContainer">
+      
+    </div>
+
+   <script type="module">
+      import * as THREE from './build/three.module.js';
+      import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+      import { OrbitControls } from './jsm/controls/OrbitControls.js';
+
+
+
+      let scene, camera, controls, renderer;
+
+      function init() {
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xdddddd);
+        scene.fog = new THREE.Fog( 0xa0a0a0, 10, 50 );
+
+
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setSize(window.innerWidth,window.innerHeight);
+
+        document.body.appendChild(renderer.domElement);
+
+         camera = new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,1,5000);
+        camera.rotation.y = 45/180*Math.PI;
+        camera.position.x = 800;
+        camera.position.y = 100;
+        camera.position.z = 1000;
+
+        //controls
+        controls = new OrbitControls( camera, renderer.domElement );
+        controls.addEventListener('change', render);
+
+        //disables the zooming of 3d model
+        controls.enableZoom = false;
+
+        const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+        hemiLight.position.set( 0, 20, 0 );
+        scene.add( hemiLight );
+
+        const dirLight = new THREE.DirectionalLight( 0xffffff );
+        dirLight.position.set( - 3, 10, - 10 );
+        dirLight.castShadow = true;
+        dirLight.shadow.camera.top = 2;
+        dirLight.shadow.camera.bottom = - 2;
+        dirLight.shadow.camera.left = - 2;
+        dirLight.shadow.camera.right = 2;
+        dirLight.shadow.camera.near = 0.1;
+        dirLight.shadow.camera.far = 40;
+        scene.add( dirLight );
+
+        
+
+        let loader = new GLTFLoader();
+        loader.load('models/scene.gltf', function(gltf){
+          var humanModel = gltf.scene.children[0];
+          humanModel.scale.set(2,2,2);
+          scene.add(gltf.scene);
+          animate();
+        });
+      }
+      function animate() {
+        renderer.render(scene,camera);
+        requestAnimationFrame(animate);
+      }
+      function render() {
+
+          renderer.render( scene, camera );
+
+      }
+      init();
+    </script>
+  </body>
+</html>
