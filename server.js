@@ -31,18 +31,32 @@ const server = http.createServer((req,res) => {
             if(pathName==='/'||pathName==='/index.html'||pathName==='/index')
             {
 
-                  fs.readFile(`${__dirname}/index.html`, 'utf-8', (err, data) => {
+                  fs.readFile(startPath+'/index.html', 'utf-8', (err, data) => {
                         
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         
                         res.writeHead(200, {'Content-type': 'text'});
                         res.end(data);
                         
+                  });
+            }
+            else if(pathName==='/misc_controls_orbit.html'||pathName==='/misc_controls_orbit')
+            {
+                  fs.readFile(startPath+'/misc_controls_orbit.html', 'utf-8', (err, data) => {
+                        
+                        if(err)
+                        {
+                              console.log(err);
+                              res.writeHead(404, {'Location': '404'});
+                              res.end();
+                        }
+                        res.writeHead(200, {'Content-type': 'text'});
+                        res.end(data);
                   });
             }
             else if((/\.(css)$/i).test(pathName))
@@ -52,7 +66,7 @@ const server = http.createServer((req,res) => {
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         res.writeHead(200, {'Content-type': 'text/css'});
@@ -62,12 +76,12 @@ const server = http.createServer((req,res) => {
 
             else if((/\.(jpg|jpeg|png|gif)$/i).test(pathName))
             {
-                  fs.readFile(__dirname+pathName, (err, data) => {
+                  fs.readFile(startPath+pathName, (err, data) => {
                         
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         res.writeHead(200, {'Content-type': 'image/png'});
@@ -76,12 +90,12 @@ const server = http.createServer((req,res) => {
             }
             else if(pathName==='/404.html'||pathName==='/404')
             {
-                  fs.readFile(`${__dirname}/404.html`, 'utf-8', (err, data) => {
+                  fs.readFile(startPath+'/404.html', 'utf-8', (err, data) => {
                         
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         res.writeHead(200, {'Content-type': 'text/html'});
@@ -89,13 +103,13 @@ const server = http.createServer((req,res) => {
                   });
             }
                   
-            else if((/\.(js)$/i).test(pathName)){
-                  fs.readFile(__dirname+pathName, (err, data) => {
+            else if((/\.(js)$/i).test(pathName)&&pathName!='/server.js'){
+                  fs.readFile(startPath+pathName, (err, data) => {
                         
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         res.writeHead(200, {'Content-type': 'application/javascript'});
@@ -108,7 +122,7 @@ const server = http.createServer((req,res) => {
                         if(err)
                         {
                               console.log(err);
-                              res.writeHead(404, {'Location': '404.html'});
+                              res.writeHead(404, {'Location': '404'});
                               res.end();
                         }
                         res.writeHead(200, {'Content-type': 'application/javascript'});
@@ -116,7 +130,7 @@ const server = http.createServer((req,res) => {
                   });
             }
             else{
-                  res.writeHead(302, {'Location': '404.html'});
+                  res.writeHead(302, {'Location': '404'});
                   res.end();
             }
       }
