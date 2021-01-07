@@ -9,8 +9,6 @@ const positiveScore =  5;
 const negativeScore = 1;
 
 function locate(word, worksheet){
-
-      
       var rowNum = 2;
       var foundRow = -1;
 
@@ -31,6 +29,10 @@ function locate(word, worksheet){
 
 };
 
+function check(x) {
+      return x.every(i => (typeof i === "string"));
+  }
+
 const server = http.createServer((req,res) => {
       const pathName = url.parse(req.url,true).pathname;
       const queries = url.parse(req.url,true).query;
@@ -38,7 +40,6 @@ const server = http.createServer((req,res) => {
       const startPath = `${__dirname}`;
 
       if(req.method==='POST'){
-            
                   
       }
 
@@ -60,7 +61,26 @@ const server = http.createServer((req,res) => {
                         body.push(chunk);
                   });
                   req.on('end', () => {
-                        var symptoms = JSON.parse(body.toString());
+
+                        var symptoms;
+
+                        try{
+                              symptoms = JSON.parse(body.toString());
+                        }catch(err)
+                        {
+                              console.log(err);
+                              res.writeHead(404);
+                              res.end('No Body Attached or Incorrect Format.');
+                        }
+
+                        if(!check(symptoms))
+                        {
+                              res.writeHead(404);
+                              res.end('All elements must be a string.');
+                        }
+                        
+                        try
+                        {
                         var severityScores = [];
                         
                         workbook.xlsx.readFile('./data/Symptom-severity.xlsx').then(()=>{
@@ -131,6 +151,14 @@ const server = http.createServer((req,res) => {
                                     res.end(JSON.stringify(result));
                               });
                         });
+                        }catch(err)
+                        {
+                              console.log("broken");
+                              onsole.log(err);
+                              res.writeHead(404);
+                              res.end('An error occured while processing your request.'); 
+                        }
+
 
                         
                   });
