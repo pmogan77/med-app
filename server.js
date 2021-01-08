@@ -55,6 +55,8 @@ const server = http.createServer((req, res) => {
             intentMap.set('Symptom Severity', demo);
 
             agent.handleRequest(intentMap);
+
+            res.end();
       
       }
       else if (req.method === "PUT") {
