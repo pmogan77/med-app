@@ -3,6 +3,29 @@
   <head>
     <meta charset=UTF-8 />
     <link rel="stylesheet" type="text/css" href="./main.css" />
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyDDhPTnd6IU9ieLjwRnesdUfKK8rE68DDo",
+        authDomain: "cs-medical-project.firebaseapp.com",
+        projectId: "cs-medical-project",
+        storageBucket: "cs-medical-project.appspot.com",
+        messagingSenderId: "375466051856",
+        appId: "1:375466051856:web:f21ce84cc7a597609b7d95",
+        measurementId: "G-72037HTQKR"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
   </head>
   <body>
     <div id="viewContainer">
