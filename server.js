@@ -187,7 +187,7 @@ app.post('/', express.json(), (req,res)=>{
 
       async function severity(agent){
 
-            var symptoms = req.body.queryResult.parameters.symptoms.map(el=>el.replace(/ /g,"_");
+            var symptoms = req.body.queryResult.parameters.symptoms.map(el=>el.replace(/ /g,"_"));
             
             var severityScores = [];
 
