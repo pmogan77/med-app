@@ -37,12 +37,50 @@ function check(x) {
 
 const startPath = `${__dirname}`;
 
-
 app.post('/', express.json(), (req,res)=>{
       const agent = new diff.WebhookClient({
             request:req,
             response:res
       });
+
+      function convertArray(array)
+      {
+            if(array.length==2)
+            {
+                  return (array[0]+" and "+array[1]).toString();
+            }
+            else{
+
+                  var result = "";
+
+                  for (let i = 0; i < array.length; i++) {
+                        const element = array[i];
+                        if(i==array.length-1)
+                        {
+                              result+=("and "+element); 
+                        }
+                        else
+                        {
+                             result+=(element+", "); 
+                        }
+                  }
+
+                  return result;
+            }
+      }
+
+      function noSeverityData(array)
+      {
+            for (let i = 0; i < array.length; i++) {
+                  const element = array[i];
+                  if(element!=-1)
+                  {
+                        return false;
+                  }
+            }
+
+            return true;
+      }
 
       async function information(agent){
 
@@ -56,7 +94,7 @@ app.post('/', express.json(), (req,res)=>{
             var diseaseDesc = worksheet.getRow(rowNum).values[2];
 
             if (diseaseDesc == null || diseaseDesc == undefined) {
-                  diseaseDesc = "no record on file";
+                  diseaseDesc = "No record on file for "+condition+".";
             }
 
             console.log(diseaseDesc);
@@ -72,6 +110,11 @@ app.post('/', express.json(), (req,res)=>{
             var worksheet = workbook.worksheets[0];
 
             var rowNum = locate(condition, worksheet);
+
+            if(rowNum==-1)
+            {
+                  agent.add("No Disease information found for "+condition+".");
+            }
 
             var list = worksheet.getRow(rowNum).values;
             
@@ -148,7 +191,55 @@ app.post('/', express.json(), (req,res)=>{
                   severityScores.push(severity);
             });
 
-            agent.add(severityScores);
+            var output = "";
+
+            if(severityScores.length==0||noSeverityData(severityScores))
+            {
+                  output = "There is no data for any of the symptoms mentioned."
+            }
+            else 
+            {
+                  var havedataNames = [];
+                  var havedataSeverity = [];
+                  var nodata = [];
+
+                  for(var i =0;i<severityScores.length;i++)
+                  {
+                        if(severityScores[i]!=-1)
+                        {
+                              havedataNames.push(symptoms[i]);
+                              havedataSeverity.push(severityScores[i]);
+                        }
+                        else{
+                              nodata.push(symptoms[i]);
+                        }
+                  }
+
+                  var result = "";
+
+                  if(nodata.length==0)
+                  {
+
+                  }
+                  else if(nodata.length==1)
+                  {
+                        result+="There is no data for "+nodata[0]+". ";
+                  }
+                  else{
+                        result+="There is no data for "+convertArray(nodata)+". ";
+                  }
+
+                  if(havedataNames.length==1)
+                  {
+                        result+="The severity of "+havedataNames[0]+" is "+havedataSeverity[0]+"."
+                  }
+                  else if(havedataNames.length>1){
+                        result+="The severity of "+convertArray(havedataNames)+" is "+convertArray(havedataSeverity)+", respectively."
+                  }
+                  output = result;
+            }
+
+            agent.add(output);
       }
 
       function demo(agent){
