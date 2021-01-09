@@ -9,6 +9,7 @@ const diff = require('dialogflow-fulfillment');
 var PORT = process.env.PORT || 3000;
 const positiveScore = 5;
 const negativeScore = 1;
+const chatPredSize = 3;
 
 function locate(word, worksheet) {
       var rowNum = 2;
@@ -176,7 +177,6 @@ app.post('/', express.json(), (req,res)=>{
                         )
             );
             
-            var chatPredSize = 3;
             var items = list.slice(0, chatPredSize).map(el => el.condition);
             var accuracy = list.slice(0, chatPredSize).map(el => el.score);
             
