@@ -177,10 +177,10 @@ app.post('/', express.json(), (req,res)=>{
                         )
             );
             
-            var items = list.slice(0, chatPredSize).map(el => el.condition);
-            var accuracy = list.slice(0, chatPredSize).map(el => el.score);
+            var items = diseasePrediction.slice(0, chatPredSize).map(el => el.condition);
+            var accuracy = diseasePrediction.slice(0, chatPredSize).map(el => el.score);
             
-            var output = "The top" +chatPredSize+" diseases which best match your symptoms are "+convertArray(items)+". Our respective score for each is "+convertArray(accuracy)+".";
+            var output = "The top " +chatPredSize+" diseases which best match your symptoms are "+convertArray(items)+". Our respective score for each is "+convertArray(accuracy)+".";
 
             agent.add(output);
       }
