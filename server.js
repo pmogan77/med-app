@@ -44,14 +44,116 @@ app.post('/', express.json(), (req,res)=>{
             response:res
       });
 
-      req.body.queryResult.parameters.disease
-
       function information(agent){
-            agent.add("Parsed disease: "+req.body.queryResult.parameters.disease);
+
+            workbook.xlsx.readFile("./data/symptom_Description.xlsx").then(() => {
+
+                  var condition = req.body.queryResult.parameters.disease;
+
+                  var worksheet = workbook.worksheets[0];
+
+                  var rowNum = locate(condition, worksheet);
+
+                  var diseaseDesc = worksheet.getRow(rowNum).values[2];
+
+                  if (diseaseDesc == null || diseaseDesc == undefined) {
+                        diseaseDesc = "no record on file";
+                  }
+                  
+                  agent.add(diseaseDesc);
+            });
+
+            
       }
 
       function precaution(agent){
-            agent.add("Parsed disease: "+req.body.queryResult.parameters.disease);
+          
+            var condition = req.body.queryResult.parameters.disease;
+
+            workbook.xlsx.readFile("./data/symptom_precaution.xlsx").then(() => {
+                  var worksheet = workbook.worksheets[0];
+
+                  var rowNum = locate(condition, worksheet);
+
+                  var list = worksheet.getRow(rowNum).values;
+                  
+                  agent.add(list);
+            });
+            
+      }
+
+      function predict(agent){
+            var symptoms = req.body.queryResult.parameters.symptoms;
+
+            var diseasePrediction = [];
+
+            workbook.xlsx.readFile("./data/dataset.xlsx").then(() => {
+                  var worksheet = workbook.worksheets[0];
+
+                  var rowNum = 2;
+
+                  while (worksheet.getRow(rowNum).getCell(1).value != null) {
+                        var row = worksheet.getRow(rowNum).values;
+
+                        var rowScore = 0;
+
+                        var length = row.length;
+
+                        for (var i = 2; i < length; i++) {
+                              if (symptoms.includes(row[i]) ||symptoms.includes(row[i].substring(1))) {
+                                    rowScore += positiveScore;
+                              } else {
+                                    rowScore -= negativeScore;
+                              }
+                        }
+
+                        diseasePrediction.push({ condition: row[1], score: rowScore });
+
+                        rowNum++;
+                  }
+
+                  diseasePrediction.sort(function (a, b) {
+                        return b.score - a.score;
+                  });
+
+                  diseasePrediction = diseasePrediction.filter(
+                        (first, index, self) =>
+                              index ===
+                              self.findIndex(
+                                    (second) =>
+                                          //Note: EDIT SIMILARITY CONDITION AS NEEDED
+                                          second.condition === first.condition &&
+                                          second.score === first.score
+                              )
+                  );
+
+                  agent.add(diseasePrediction);
+            });
+      }
+
+      function severity(agent){
+
+            var symptoms = req.body.queryResult.parameters.symptoms;
+            
+            var severityScores = [];
+
+            workbook.xlsx.readFile("./data/Symptom-severity.xlsx").then(() => {
+                  var worksheet = workbook.worksheets[0];
+
+                  symptoms.forEach((element) => {
+                        var rowNum = locate(element, workbook.worksheets[0]);
+
+                        var severity = worksheet.getRow(rowNum).values[2];
+
+                        if (severity == undefined || severity == null) {
+                              severity = -1;
+                        }
+
+                        severityScores.push(severity);
+                  });
+
+                  agent.add(severityScores);
+            });
       }
 
       function demo(agent){
@@ -61,9 +163,9 @@ app.post('/', express.json(), (req,res)=>{
       var intentMap = new Map();
 
       intentMap.set('Disease Information', information);
-      intentMap.set('Disease Prediction', demo);
+      intentMap.set('Disease Prediction', predict);
       intentMap.set('Disease Precautions', precaution);
-      intentMap.set('Symptom Severity', demo);
+      intentMap.set('Symptom Severity', severity);
 
       agent.handleRequest(intentMap);  
 })
