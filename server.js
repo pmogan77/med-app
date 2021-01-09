@@ -113,12 +113,22 @@ app.post('/', express.json(), (req,res)=>{
 
             if(rowNum==-1)
             {
-                  agent.add("No Disease information found for "+condition+".");
+                  agent.add("No Disease precaution information found for "+condition+".");
             }
 
-            var list = worksheet.getRow(rowNum).values;
+            var list = worksheet.getRow(rowNum).values.slice(2).map(element => element.toLowerCase());
+
+            var output = "";
+
+            if(list.length==1)
+            {
+                  output = "The main precaution for "+condition+" is to "+list[0]+".";
+            }
+            else{
+                  output = "Precautions for "+condition+" are to "+convertArray(list)+".";
+            }
             
-            agent.add(list);
+            agent.add(output);
             
       }
 
@@ -162,12 +172,17 @@ app.post('/', express.json(), (req,res)=>{
                         self.findIndex(
                               (second) =>
                                     //Note: EDIT SIMILARITY CONDITION AS NEEDED
-                                    second.condition === first.condition &&
-                                    second.score === first.score
+                                    second.condition === first.condition
                         )
             );
+            
+            var chatPredSize = 3;
+            var items = list.slice(0, chatPredSize).map(el => el.condition);
+            var accuracy = list.slice(0, chatPredSize).map(el => el.score);
+            
+            var output = "The top" +chatPredSize+" diseases which best match your symptoms are "+convertArray(items)+". Our respective score for each is "+convertArray(accuracy)+".";
 
-            agent.add(diseasePrediction);
+            agent.add(output);
       }
 
       async function severity(agent){
