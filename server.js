@@ -271,11 +271,11 @@ app.post('/', express.json(), (req,res)=>{
       agent.handleRequest(intentMap);  
 })
 
-app.put('/', (req,res)=>{
+app.put('*', (req,res)=>{
       res.end('No put pathway created.');  
 })
 
-app.delete('/', (req,res)=>{
+app.delete('*', (req,res)=>{
       res.end('No put pathway created.');  
 })
 
@@ -309,7 +309,7 @@ app.get('/generalInfo', (req,res)=>{
                         res.end("No Body Attached or Incorrect Format.");
                   }
 
-                  if (!symptoms || !check(symptoms)) {
+                  if (!Array.isArray(symptoms) || !symptoms || !check(symptoms)) {
                         res.end("All elements must be a string.");
                   }
 
@@ -321,6 +321,9 @@ app.get('/generalInfo', (req,res)=>{
 
                               symptoms.forEach((element) => {
                                     var rowNum = locate(element, workbook.worksheets[0]);
+                                    if(rowNum==-1){
+                                          rowNum = locate(element.substring(1), workbook.worksheets[0]);
+                                    }
 
                                     var severity = worksheet.getRow(rowNum).values[2];
 
