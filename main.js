@@ -674,12 +674,6 @@ function symptomToArray() {
 	});
 }
 
-submitSymptom.click(function (e) {
-	e.preventDefault();
-	generateDiagnosis();
-	alert("User clicked");
-});
-
 //disable the check boxes
 function disableInput(inputForm) {
 	arrayOfForms = Array.from(document.getElementsByTagName("input"));
@@ -695,4 +689,10 @@ function generateDiagnosis() {
 	customSymptomList;
 
 	console.log(customSymptomList);
+
+	fetch('/generalInfo', {method: 'GET', body: customSymptomList.toString()}).then((resBuffer) =>{
+		resBuffer.json().then(res =>{
+			console.log(res);
+		})
+	})
 }
