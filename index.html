@@ -1,106 +1,513 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset=UTF-8 />
-    <link rel="stylesheet" type="text/css" href="./main.css" />
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+<html lang="en">
+	<head>
+		<title>CS Medical Project Front End</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<link rel="shortcut icon" href="img/web-shortcut.png">
+		<style>
+			a {
+				color: #f00;
+			}
+			.ac {  /* prevent dat-gui from being selected */
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.no-pointer-events {
+				pointer-events: none;
+			}
+			.control-disabled {
+				color: #888;
+				text-decoration: line-through;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+	      <div class="navContainer">
+	        
+	        <!--Add in logo, code for future use
+	        	<img src="img/nav logo.png" alt="logo" class="logo">-->
+	        
+	        <nav id="navbar">
+	       
+	          <ul>
+	            <li><a href="#">Home</a></li>
+	            <li><a href="#">About Us</a></li>
+	            <li><a href="#">Diagnosis Page</a></li>
+	          </ul>
+	          
+	        </nav>
+	      </div>
+    	</header>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
+    	<div id="console">
 
-    <script>
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      var firebaseConfig = {
-        apiKey: "AIzaSyDDhPTnd6IU9ieLjwRnesdUfKK8rE68DDo",
-        authDomain: "cs-medical-project.firebaseapp.com",
-        projectId: "cs-medical-project",
-        storageBucket: "cs-medical-project.appspot.com",
-        messagingSenderId: "375466051856",
-        appId: "1:375466051856:web:f21ce84cc7a597609b7d95",
-        measurementId: "G-72037HTQKR"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    </script>
-  </head>
-  <body>
-    <div id="viewContainer">
+    	</div>
+
+
+    	<div class="page-wrapper">
+    		
+			<div id="container"></div>
+			<div id="modalContainer">
+				<div id="simpleModal" class="modal">
+	                <div class="modal-content">
+	                  <div class="modal-header">
+	                    <h2>Symptoms</h2>
+	                    <div id="limbSelector">None Selected</div>
+	                    
+	                  </div>
+	                  <div class="modal-body">
+	                     <form id="symptoms">
+							<div class="form-group" name="Skin" id="Skin">
+							Skin
+							<br>
+
+							<input type="checkbox" id="symptom" name="itching" value="itching">
+							<label for="symptom"> itching</label><br>
+							<input type="checkbox" id="symptom" name="skin_rash" value="skin_rash">
+							<label for="symptom"> skin_rash</label><br>
+							<input type="checkbox" id="symptom" name="nodal_skin_eruptions" value="nodal_skin_eruptions">
+							<label for="symptom"> nodal_skin_eruptions</label><br>
+							<input type="checkbox" id="symptom" name="yellowish_skin" value="yellowish_skin">
+							<label for="symptom"> yellowish_skin</label><br>
+							<input type="checkbox" id="symptom" name="bruising" value="bruising">
+							<label for="symptom"> bruising</label><br>
+							<input type="checkbox" id="symptom" name="palpitations" value="palpitations">
+							<label for="symptom"> palpitations</label><br>
+							<input type="checkbox" id="symptom" name="pus_filled_pimples" value="pus_filled_pimples">
+							<label for="symptom"> pus_filled_pimples</label><br>
+							<input type="checkbox" id="symptom" name="blackheads" value="blackheads">
+							<label for="symptom"> blackheads</label><br>
+							<input type="checkbox" id="symptom" name="scurring" value="scurring">
+							<label for="symptom"> scurring</label><br>
+							<input type="checkbox" id="symptom" name="skin_peeling" value="skin_peeling">
+							<label for="symptom"> skin_peeling</label><br>
+							<input type="checkbox" id="symptom" name="silver_like_dusting" value="silver_like_dusting">
+							<label for="symptom"> silver_like_dusting</label><br>
+							<input type="checkbox" id="symptom" name="blister" value="blister">
+							<label for="symptom"> blister</label><br>
+							<input type="checkbox" id="symptom" name="red_sore_around_nose" value="red_sore_around_nose">
+							<label for="symptom"> red_sore_around_nose</label><br>
+							<input type="checkbox" id="symptom" name="yellow_crust_ooze" value="yellow_crust_ooze">
+							<label for="symptom"> yellow_crust_ooze</label><br>
+							<input type="checkbox" id="symptom" name="red_spots_over_body" value="red_spots_over_body">
+							<label for="symptom"> red_spots_over_body</label><br>
+							<input type="checkbox" id="symptom" name="dischromic_patches" value="dischromic_patches">
+							<label for="symptom"> dischromic_patches</label><br>
+							<input type="checkbox" id="symptom" name="toxic_look_(typhos)" value="toxic_look_(typhos)">
+							<label for="symptom"> toxic_look_(typhos)</label><br>
+							</div>	
+							<div class="form-group" name="Others" id="Others">
+							Others
+							<br>
+
+							<input type="checkbox" id="symptom" name="shivering" value="shivering">
+							<label for="symptom"> shivering</label><br>
+							<input type="checkbox" id="symptom" name="chills" value="chills">
+							<label for="symptom"> chills</label><br>
+							<input type="checkbox" id="symptom" name="fatigue" value="fatigue">
+							<label for="symptom"> fatigue</label><br>
+							<input type="checkbox" id="symptom" name="weight_gain" value="weight_gain">
+							<label for="symptom"> weight_gain</label><br>
+							<input type="checkbox" id="symptom" name="cold_hands_and_feets" value="cold_hands_and_feets">
+							<label for="symptom"> cold_hands_and_feets</label><br>
+							<input type="checkbox" id="symptom" name="weight_loss" value="weight_loss">
+							<label for="symptom"> weight_loss</label><br>
+							<input type="checkbox" id="symptom" name="restlessness" value="restlessness">
+							<label for="symptom"> restlessness</label><br>
+							<input type="checkbox" id="symptom" name="lethargy" value="lethargy">
+							<label for="symptom"> lethargy</label><br>
+							<input type="checkbox" id="symptom" name="sweating" value="sweating">
+							<label for="symptom"> sweating</label><br>
+							<input type="checkbox" id="symptom" name="dehydration" value="dehydration">
+							<label for="symptom"> dehydration</label><br>
+							<input type="checkbox" id="symptom" name="swollen_extremeties" value="swollen_extremeties">
+							<label for="symptom"> swollen_extremeties</label><br>
+							<input type="checkbox" id="symptom" name="obesity" value="obesity">
+							<label for="symptom"> obesity</label><br>
+							<input type="checkbox" id="symptom" name="fluid_overload" value="fluid_overload">
+							<label for="symptom"> fluid_overload</label><br>
+							</div>	
+							<div class="form-group" name="Psychological" id="Psychological">
+							Psychological
+							<br>
+
+							<input type="checkbox" id="symptom" name="anxiety" value="anxiety">
+							<label for="symptom"> anxiety</label><br>
+							<input type="checkbox" id="symptom" name="mood_swings" value="mood_swings">
+							<label for="symptom"> mood_swings</label><br>
+							<input type="checkbox" id="symptom" name="loss_of_appetite" value="loss_of_appetite">
+							<label for="symptom"> loss_of_appetite</label><br>
+							<input type="checkbox" id="symptom" name="excessive_hunger" value="excessive_hunger">
+							<label for="symptom"> excessive_hunger</label><br>
+							<input type="checkbox" id="symptom" name="internal_itching" value="internal_itching">
+							<label for="symptom"> internal_itching</label><br>
+							<input type="checkbox" id="symptom" name="depression" value="depression">
+							<label for="symptom"> depression</label><br>
+							<input type="checkbox" id="symptom" name="lack_of_concentration" value="lack_of_concentration">
+							<label for="symptom"> lack_of_concentration</label><br>
+							<input type="checkbox" id="symptom" name="visual_disturbances" value="visual_disturbances">
+							<label for="symptom"> visual_disturbances</label><br>
+							<input type="checkbox" id="symptom" name="irritability" value="irritability">
+							<label for="symptom"> irritability</label><br>
+							<input type="checkbox" id="symptom" name="increased_appetite" value="increased_appetite">
+							<label for="symptom"> increased_appetite</label><br>
+							<input type="checkbox" id="symptom" name="malaise" value="malaise">
+							<label for="symptom"> malaise</label><br>
+							<input type="checkbox" id="symptom" name="altered_sensorium" value="altered_sensorium">
+							<label for="symptom"> altered_sensorium</label><br>
+							</div>	
+							<div class="form-group" name="movement/ speech impairment" id="movement/ speech impairment">
+							movement/ speech impairment
+							<br>
+
+							<input type="checkbox" id="symptom" name="movement_stiffness" value="movement_stiffness">
+							<label for="symptom"> movement_stiffness</label><br>
+							<input type="checkbox" id="symptom" name="spinning_movements" value="spinning_movements">
+							<label for="symptom"> spinning_movements</label><br>
+							<input type="checkbox" id="symptom" name="loss_of_balance" value="loss_of_balance">
+							<label for="symptom"> loss_of_balance</label><br>
+							<input type="checkbox" id="symptom" name="unsteadiness" value="unsteadiness">
+							<label for="symptom"> unsteadiness</label><br>
+							<input type="checkbox" id="symptom" name="weakness_of_one_body_side" value="weakness_of_one_body_side">
+							<label for="symptom"> weakness_of_one_body_side</label><br>
+							<input type="checkbox" id="symptom" name="weakness_in_limbs" value="weakness_in_limbs">
+							<label for="symptom"> weakness_in_limbs</label><br>
+							<input type="checkbox" id="symptom" name="painful_walking" value="painful_walking">
+							<label for="symptom"> painful_walking</label><br>
+							<input type="checkbox" id="symptom" name="dizziness" value="dizziness">
+							<label for="symptom"> dizziness</label><br>
+							<input type="checkbox" id="symptom" name="slurred_speech" value="slurred_speech">
+							<label for="symptom"> slurred_speech</label><br>
+							</div>	
+							<div class="form-group" name="Personal Infromation" id="Personal Infromation">
+							Personal Infromation
+							<br>
+
+							<input type="checkbox" id="symptom" name="extra_marital_contacts" value="extra_marital_contacts">
+							<label for="symptom"> extra_marital_contacts</label><br>
+							<input type="checkbox" id="symptom" name="family_history" value="family_history">
+							<label for="symptom"> family_history</label><br>
+							<input type="checkbox" id="symptom" name="history_of_alcohol_consumption" value="history_of_alcohol_consumption">
+							<label for="symptom"> history_of_alcohol_consumption</label><br>
+							<input type="checkbox" id="symptom" name="prognosis" value="prognosis">
+							<label for="symptom"> prognosis</label><br>
+							<input type="checkbox" id="symptom" name="receiving_blood_transfusion" value="receiving_blood_transfusion">
+							<label for="symptom"> receiving_blood_transfusion</label><br>
+							<input type="checkbox" id="symptom" name="receiving_unsterile_injections" value="receiving_unsterile_injections">
+							<label for="symptom"> receiving_unsterile_injections</label><br>
+							<input type="checkbox" id="symptom" name="coma" value="coma">
+							<label for="symptom"> coma</label><br>
+							<input type="checkbox" id="symptom" name="obesity" value="obesity">
+							<label for="symptom"> obesity</label><br>
+							</div>	
+							<div class="form-group" name="Stomach" id="Stomach">
+							Stomach
+							<br>
+
+							<input type="checkbox" id="symptom" name="vomiting" value="vomiting">
+							<label for="symptom"> vomiting</label><br>
+							<input type="checkbox" id="symptom" name="stomach_pain" value="stomach_pain">
+							<label for="symptom"> stomach_pain</label><br>
+							<input type="checkbox" id="symptom" name="acidity" value="acidity">
+							<label for="symptom"> acidity</label><br>
+							<input type="checkbox" id="symptom" name="indigestion" value="indigestion">
+							<label for="symptom"> indigestion</label><br>
+							<input type="checkbox" id="symptom" name="nausea" value="nausea">
+							<label for="symptom"> nausea</label><br>
+							<input type="checkbox" id="symptom" name="constipation" value="constipation">
+							<label for="symptom"> constipation</label><br>
+							<input type="checkbox" id="symptom" name="diarrhoea" value="diarrhoea">
+							<label for="symptom"> diarrhoea</label><br>
+							<input type="checkbox" id="symptom" name="abdominal_pain" value="abdominal_pain">
+							<label for="symptom"> abdominal_pain</label><br>
+							<input type="checkbox" id="symptom" name="acute_liver_failure" value="acute_liver_failure">
+							<label for="symptom"> acute_liver_failure</label><br>
+							<input type="checkbox" id="symptom" name="swelling_of_stomach" value="swelling_of_stomach">
+							<label for="symptom"> swelling_of_stomach</label><br>
+							<input type="checkbox" id="symptom" name="belly_pain" value="belly_pain">
+							<label for="symptom"> belly_pain</label><br>
+							<input type="checkbox" id="symptom" name="stomach_bleeding" value="stomach_bleeding">
+							<label for="symptom"> stomach_bleeding</label><br>
+							<input type="checkbox" id="symptom" name="distention_of_abdomen" value="distention_of_abdomen">
+							<label for="symptom"> distention_of_abdomen</label><br>
+							<input type="checkbox" id="symptom" name="pain_during_bowel_movements" value="pain_during_bowel_movements">
+							<label for="symptom"> pain_during_bowel_movements</label><br>
+							<input type="checkbox" id="symptom" name="passage_of_gases" value="passage_of_gases">
+							<label for="symptom"> passage_of_gases</label><br>
+							</div>	
+							<div class="form-group" name="Buttox" id="Buttox">
+							Buttox
+							<br>
+
+							<input type="checkbox" id="symptom" name="constipation" value="constipation">
+							<label for="symptom"> constipation</label><br>
+							<input type="checkbox" id="symptom" name="diarrhoea" value="diarrhoea">
+							<label for="symptom"> diarrhoea</label><br>
+							<input type="checkbox" id="symptom" name="pain_during_bowel_movements" value="pain_during_bowel_movements">
+							<label for="symptom"> pain_during_bowel_movements</label><br>
+							<input type="checkbox" id="symptom" name="pain_in_anal_region" value="pain_in_anal_region">
+							<label for="symptom"> pain_in_anal_region</label><br>
+							<input type="checkbox" id="symptom" name="bloody_stool" value="bloody_stool">
+							<label for="symptom"> bloody_stool</label><br>
+							<input type="checkbox" id="symptom" name="irritation_in_anus" value="irritation_in_anus">
+							<label for="symptom"> irritation_in_anus</label><br>
+							</div>	
+							<div class="form-group" name="Groin" id="Groin">
+							Groin
+							<br>
+
+							<input type="checkbox" id="symptom" name="burning_micturition" value="burning_micturition">
+							<label for="symptom"> burning_micturition</label><br>
+							<input type="checkbox" id="symptom" name="spotting_urination" value="spotting_urination">
+							<label for="symptom"> spotting_urination</label><br>
+							<input type="checkbox" id="symptom" name="dark_urine" value="dark_urine">
+							<label for="symptom"> dark_urine</label><br>
+							<input type="checkbox" id="symptom" name="yellow_urine" value="yellow_urine">
+							<label for="symptom"> yellow_urine</label><br>
+							<input type="checkbox" id="symptom" name="bladder_discomfort" value="bladder_discomfort">
+							<label for="symptom"> bladder_discomfort</label><br>
+							<input type="checkbox" id="symptom" name="foul_smell_ofurine" value="foul_smell_ofurine">
+							<label for="symptom"> foul_smell_ofurine</label><br>
+							<input type="checkbox" id="symptom" name="continuous_feel_of_urine" value="continuous_feel_of_urine">
+							<label for="symptom"> continuous_feel_of_urine</label><br>
+							<input type="checkbox" id="symptom" name="abnormal_menstruation" value="abnormal_menstruation">
+							<label for="symptom"> abnormal_menstruation</label><br>
+							<input type="checkbox" id="symptom" name="polyuria" value="polyuria">
+							<label for="symptom"> polyuria</label><br>
+							</div>	
+							<div class="form-group" name="Neck" id="Neck">
+							Neck
+							<br>
+
+							<input type="checkbox" id="symptom" name="patches_in_throat" value="patches_in_throat">
+							<label for="symptom"> patches_in_throat</label><br>
+							<input type="checkbox" id="symptom" name="neck_pain" value="neck_pain">
+							<label for="symptom"> neck_pain</label><br>
+							<input type="checkbox" id="symptom" name="throat_irritation" value="throat_irritation">
+							<label for="symptom"> throat_irritation</label><br>
+							<input type="checkbox" id="symptom" name="stiff_neck" value="stiff_neck">
+							<label for="symptom"> stiff_neck</label><br>
+							<input type="checkbox" id="symptom" name="swelled_lymph_nodes" value="swelled_lymph_nodes">
+							<label for="symptom"> swelled_lymph_nodes</label><br>
+							<input type="checkbox" id="symptom" name="enlarged_thyroid" value="enlarged_thyroid">
+							<label for="symptom"> enlarged_thyroid</label><br>
+							</div>	
+							<div class="form-group" name="Chest" id="Chest">
+							Chest
+							<br>
+
+							<input type="checkbox" id="symptom" name="irregular_sugar_level" value="irregular_sugar_level">
+							<label for="symptom"> irregular_sugar_level</label><br>
+							<input type="checkbox" id="symptom" name="chest_pain" value="chest_pain">
+							<label for="symptom"> chest_pain</label><br>
+							<input type="checkbox" id="symptom" name="fast_heart_rate" value="fast_heart_rate">
+							<label for="symptom"> fast_heart_rate</label><br>
+							<input type="checkbox" id="symptom" name="swollen_blood_vessels" value="swollen_blood_vessels">
+							<label for="symptom"> swollen_blood_vessels</label><br>
+							</div>	
+							<div class="form-group" name="Head" id="Head">
+							Head
+							<br>
+
+							<input type="checkbox" id="symptom" name="ulcers_on_tongue" value="ulcers_on_tongue">
+							<label for="symptom"> ulcers_on_tongue</label><br>
+							<input type="checkbox" id="symptom" name="high_fever" value="high_fever">
+							<label for="symptom"> high_fever</label><br>
+							<input type="checkbox" id="symptom" name="drying_and_tingling_lips" value="drying_and_tingling_lips">
+							<label for="symptom"> drying_and_tingling_lips</label><br>
+							<input type="checkbox" id="symptom" name="mild_fever" value="mild_fever">
+							<label for="symptom"> mild_fever</label><br>
+							</div>	
+							<div class="form-group" name="Eyes" id="Eyes">
+							Eyes
+							<br>
+
+							<input type="checkbox" id="symptom" name="yellowing_of_eyes" value="yellowing_of_eyes">
+							<label for="symptom"> yellowing_of_eyes</label><br>
+							<input type="checkbox" id="symptom" name="blurred_and_distorted_vision" value="blurred_and_distorted_vision">
+							<label for="symptom"> blurred_and_distorted_vision</label><br>
+							<input type="checkbox" id="symptom" name="redness_of_eyes" value="redness_of_eyes">
+							<label for="symptom"> redness_of_eyes</label><br>
+							<input type="checkbox" id="symptom" name="watering_from_eyes" value="watering_from_eyes">
+							<label for="symptom"> watering_from_eyes</label><br>
+							<input type="checkbox" id="symptom" name="puffy_face_and_eyes" value="puffy_face_and_eyes">
+							<label for="symptom"> puffy_face_and_eyes</label><br>
+							<input type="checkbox" id="symptom" name="sunken_eyes" value="sunken_eyes">
+							<label for="symptom"> sunken_eyes</label><br>
+							<input type="checkbox" id="symptom" name="pain_behind_the_eyes" value="pain_behind_the_eyes">
+							<label for="symptom"> pain_behind_the_eyes</label><br>
+							<input type="checkbox" id="symptom" name="visual_disturbances" value="visual_disturbances">
+							<label for="symptom"> visual_disturbances</label><br>
+							</div>	
+							<div class="form-group" name="Respritory" id="Respritory">
+							Respritory
+							<br>
+
+							<input type="checkbox" id="symptom" name="continuous_sneezing" value="continuous_sneezing">
+							<label for="symptom"> continuous_sneezing</label><br>
+							<input type="checkbox" id="symptom" name="cough" value="cough">
+							<label for="symptom"> cough</label><br>
+							<input type="checkbox" id="symptom" name="breathlessness" value="breathlessness">
+							<label for="symptom"> breathlessness</label><br>
+							<input type="checkbox" id="symptom" name="headache" value="headache">
+							<label for="symptom"> headache</label><br>
+							<input type="checkbox" id="symptom" name="sinus_pressure" value="sinus_pressure">
+							<label for="symptom"> sinus_pressure</label><br>
+							<input type="checkbox" id="symptom" name="runny_nose" value="runny_nose">
+							<label for="symptom"> runny_nose</label><br>
+							<input type="checkbox" id="symptom" name="congestion" value="congestion">
+							<label for="symptom"> congestion</label><br>
+							<input type="checkbox" id="symptom" name="loss_of_smell" value="loss_of_smell">
+							<label for="symptom"> loss_of_smell</label><br>
+							<input type="checkbox" id="symptom" name="mucoid_sputum" value="mucoid_sputum">
+							<label for="symptom"> mucoid_sputum</label><br>
+							<input type="checkbox" id="symptom" name="rusty_sputum" value="rusty_sputum">
+							<label for="symptom"> rusty_sputum</label><br>
+							<input type="checkbox" id="symptom" name="blood_in_sputum" value="blood_in_sputum">
+							<label for="symptom"> blood_in_sputum</label><br>
+							<input type="checkbox" id="symptom" name="phlegm" value="phlegm">
+							<label for="symptom"> phlegm</label><br>
+							</div>	
+							<div class="form-group" name="Muscular" id="Muscular">
+							Muscular
+							<br>
+
+							<input type="checkbox" id="symptom" name="muscle_wasting" value="muscle_wasting">
+							<label for="symptom"> muscle_wasting</label><br>
+							<input type="checkbox" id="symptom" name="cramps" value="cramps">
+							<label for="symptom"> cramps</label><br>
+							<input type="checkbox" id="symptom" name="muscle_weakness" value="muscle_weakness">
+							<label for="symptom"> muscle_weakness</label><br>
+							<input type="checkbox" id="symptom" name="muscle_pain" value="muscle_pain">
+							<label for="symptom"> muscle_pain</label><br>
+							</div>	
+							<div class="form-group" name="Skeletal" id="Skeletal">
+							Skeletal
+							<br>
+
+							<input type="checkbox" id="symptom" name="joint_pain" value="joint_pain">
+							<label for="symptom"> joint_pain</label><br>
+							<input type="checkbox" id="symptom" name="hip_joint_pain" value="hip_joint_pain">
+							<label for="symptom"> hip_joint_pain</label><br>
+							<input type="checkbox" id="symptom" name="swelling_joints" value="swelling_joints">
+							<label for="symptom"> swelling_joints</label><br>
+							</div>	
+							<div class="form-group" name="knee" id="knee">
+							knee
+							<br>
+
+							<input type="checkbox" id="symptom" name="knee_pain" value="knee_pain">
+							<label for="symptom"> knee_pain</label><br>
+							</div>	
+							<div class="form-group" name="foot" id="foot">
+							foot
+							<br>
+
+							<input type="checkbox" id="symptom" name="brittle_nails" value="brittle_nails">
+							<label for="symptom"> brittle_nails</label><br>
+							<input type="checkbox" id="symptom" name="small_dents_in_nails" value="small_dents_in_nails">
+							<label for="symptom"> small_dents_in_nails</label><br>
+							<input type="checkbox" id="symptom" name="inflammatory_nails" value="inflammatory_nails">
+							<label for="symptom"> inflammatory_nails</label><br>
+							</div>	
+							<div class="form-group" name="hands" id="hands">
+							hands
+							<br>
+
+							<input type="checkbox" id="symptom" name="brittle_nails" value="brittle_nails">
+							<label for="symptom"> brittle_nails</label><br>
+							<input type="checkbox" id="symptom" name="small_dents_in_nails" value="small_dents_in_nails">
+							<label for="symptom"> small_dents_in_nails</label><br>
+							<input type="checkbox" id="symptom" name="inflammatory_nails" value="inflammatory_nails">
+							<label for="symptom"> inflammatory_nails</label><br>
+							</div>	
+							<div class="form-group" name="legs" id="legs">
+							legs
+							<br>
+
+							<input type="checkbox" id="symptom" name="swollen_legs" value="swollen_legs">
+							<label for="symptom"> swollen_legs</label><br>
+							<input type="checkbox" id="symptom" name="prominent_veins_on_calf" value="prominent_veins_on_calf">
+							<label for="symptom"> prominent_veins_on_calf</label><br>
+							</div>	
+							<div class="form-group" name="back" id="back">
+							back
+							<br>
+
+							<input type="checkbox" id="symptom" name="back_pain" value="back_pain">
+							<label for="symptom"> back_pain</label><br>
+							</div>
+
+			              
+			              </form>
+	                  </div>
+	                  
+	                 
+	                </div>
+	              </div>
+			</div>
+			<div id="modalContainer2">
+				<div id="simpleModal2" class="modal2">
+	                <div class="modal-content">
+	                  <div class="modal-header">
+	                    <h2>Added Symptoms</h2>
+	                    
+	                    <button type="submit" class="btn btn-primary" onclick="generateDiagnosis()">Generate Diagnosis</button>
+	                  </div>
+	                  <div class="modal-body">
+	                     <table class="content-table" id="table">
+			              
+			              <tbody id="tableBody">
+			                
+
+
+			             </tbody>
+			            </table>
+	                  </div>
+	                  
+	                 
+	                </div>
+	              </div>
+			</div>	
+
+              
+			<script type="module" src="main.js"></script>
+		</div>
+
+
+		 <footer class="footer">
+		      <div class="footer-content">
+		        <div class="foot-section about">
+		          <!--Add in logo, code for future use
+	        	<img src="img/nav logo.png" alt="logo" class="logo">-->
+		          <p>Descriptions.</p>
+
+		          <div class="contact">
+		            
+		          </div>
+		        </div>
+		        <div class="foot-section links" id="links">
+		          <h2>Other pages</h2>
+		          <ul>
+			        <li><a href="#">Home</a></li>
+		            <li><a href="#">About Us</a></li>
+		            <li><a href="#">Diagnosis Page</a></li>
+		          </ul>
+		        </div>
+		        
+
+
+
+		      </div>
+		      <div class="footer-bottom">
+		        Copyright &copy; CS Medical Project (Front End) | Designed by Nathan Kevin Chen
+		      </div>
       
-    </div>
-
-   <script type="module">
-      import * as THREE from './build/three.module.js';
-      import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-      import { OrbitControls } from './jsm/controls/OrbitControls.js';
-
-
-
-      let scene, camera, controls, renderer;
-
-      function init() {
-
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xdddddd);
-        scene.fog = new THREE.Fog( 0xa0a0a0, 10, 50 );
-
-
-        renderer = new THREE.WebGLRenderer({antialias:true});
-        renderer.setSize(window.innerWidth,window.innerHeight);
-
-        document.body.appendChild(renderer.domElement);
-
-         camera = new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,1,5000);
-        camera.rotation.y = 45/180*Math.PI;
-        camera.position.x = 800;
-        camera.position.y = 100;
-        camera.position.z = 1000;
-
-        //controls
-        controls = new OrbitControls( camera, renderer.domElement );
-        controls.addEventListener('change', render);
-
-        //disables the zooming of 3d model
-        controls.enableZoom = false;
-
-        const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-        hemiLight.position.set( 0, 20, 0 );
-        scene.add( hemiLight );
-
-        const dirLight = new THREE.DirectionalLight( 0xffffff );
-        dirLight.position.set( - 3, 10, - 10 );
-        dirLight.castShadow = true;
-        dirLight.shadow.camera.top = 2;
-        dirLight.shadow.camera.bottom = - 2;
-        dirLight.shadow.camera.left = - 2;
-        dirLight.shadow.camera.right = 2;
-        dirLight.shadow.camera.near = 0.1;
-        dirLight.shadow.camera.far = 40;
-        scene.add( dirLight );
-
-        
-
-        let loader = new GLTFLoader();
-        loader.load('models/scene.gltf', function(gltf){
-          var humanModel = gltf.scene.children[0];
-          humanModel.scale.set(2,2,2);
-          scene.add(gltf.scene);
-          animate();
-        });
-      }
-      function animate() {
-        renderer.render(scene,camera);
-        requestAnimationFrame(animate);
-      }
-      function render() {
-
-          renderer.render( scene, camera );
-
-      }
-      init();
-    </script>
-  </body>
+    </footer>
+	</body>
 </html>
