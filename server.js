@@ -279,7 +279,8 @@ app.delete('*', (req,res)=>{
       res.end('No put pathway created.');  
 })
 
-app.get('/generalInfo', (req,res)=>{
+app.post('/generalInfo', (req,res)=>{
+
       let body = [];
       req.on("data", (chunk) => {
             body.push(chunk);
@@ -297,7 +298,7 @@ app.get('/generalInfo', (req,res)=>{
                   try {
                         if(body.length>0)
                         {
-                              symptoms = JSON.parse(body.toString());
+                              symptoms = JSON.parse(body.toString()).data;
                         }
                         else{
                               res.statusCode = 404;
@@ -400,7 +401,7 @@ app.get('/generalInfo', (req,res)=>{
       });
 })
 
-app.get('/additionalInfo', (req,res)=>{
+app.post('/additionalInfo', (req,res)=>{
       let body = [];
       req.on("data", (chunk) => {
             body.push(chunk);
@@ -544,6 +545,34 @@ app.get(["/","/index.html","/index"], (req,res)=>{
       });
 })
 
+app.get(["/home","/home.html"], (req,res)=>{
+      fs.readFile(startPath + "/home.html", "utf-8", (err, data) => {
+            if (err) {
+                  console.log(err);
+                  res.redirect('/404');
+            }
+            else
+            {
+                  res.writeHead(200, { "Content-type": "text" });
+                  res.end(data);
+            }
+      });
+})
+
+app.get(["/about","/about.html"], (req,res)=>{
+      fs.readFile(startPath + "/about.html", "utf-8", (err, data) => {
+            if (err) {
+                  console.log(err);
+                  res.redirect('/404');
+            }
+            else
+            {
+                  res.writeHead(200, { "Content-type": "text" });
+                  res.end(data);
+            }
+      });
+})
+
 app.get(["/misc_controls_orbit.html", "/misc_controls_orbit"], (req,res)=>{
       fs.readFile(startPath + "/misc_controls_orbit.html","utf-8",(err, data) => {
                   if (err) {
@@ -587,6 +616,9 @@ app.get(/\.(css)$/i, (req,res)=>{
 })
 
 app.get(/\.(jpg|jpeg|png|gif)$/i, (req,res)=>{
+
+      console.log(req.originalUrl);
+
       fs.readFile(startPath + req.originalUrl, (err, data) => {
             if (err) {
                   console.log(err);

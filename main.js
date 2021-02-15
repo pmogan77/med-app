@@ -686,13 +686,27 @@ function disableInput(inputForm) {
 //function that will speak with the back end to get Diagnosis
 function generateDiagnosis() {
 	//list of symptoms from the user
+	
+}
+
+document.querySelector("#simpleModal2 > div > div.modal-header > button").addEventListener('click', () =>{
+	console.log(customSymptomList);
+
 	customSymptomList;
 
 	console.log(customSymptomList);
 
-	fetch('/generalInfo', {method: 'GET', body: customSymptomList.toString()}).then((resBuffer) =>{
+	
+	fetch('/additionalInfo', {method: 'POST', body: 'Malaria'}).then((resBuffer) =>{
 		resBuffer.json().then(res =>{
 			console.log(res);
 		})
 	})
-}
+	
+
+	fetch('/generalInfo', {method: 'POST', body: JSON.stringify({data:customSymptomList})}).then((resBuffer) =>{
+		resBuffer.json().then(res =>{
+			console.log(res);
+		})
+	})
+})
