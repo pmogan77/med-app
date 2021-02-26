@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Genetic Ethnicity Exchange</title>
+    <title>Web Clinic - About Us</title>
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -13,13 +13,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="about.css" />
-    <link rel="shortcut icon" href="img/web-shortcut.png">
+    <link rel="shortcut icon" href="img/web-shortcut.PNG">
   </head>
   <body>
     
   <header>
   <div class="container">
-    <img src="img/navlogo.png" alt="logo" class="logo">
+    <a href='/home'><img src="img/Fulllogo.png" alt="logo" class="logo" /></a>
     
     <nav id="navbar">
    
@@ -28,42 +28,52 @@
 
         <li><a href="/home">Home</a></li>
         <li><a href="/about">About Us</a></li>
-        <li><a href="#">Input Data</a></li>
-        <li><a href="#">Genomics Database</a></li>
-        <li><a href="#">Log In</a></li>
+        <li ><a href="/">Diagnosis</a></li>
       </ul>
       
   </nav>
   </div>
 
 </header>
-
+  <div class="opening-image">
+    <h1 class="welcome-txt">About Web Clinic</h1>
+    <p class="welcome-disc">In light of the increasingly turbulent health care systems as a result of the global COVID-19 pandemic, Web Clinic attempts to bring the general population a platform for users to get near instantaneous diagnosis for any ailment.</p>
+  </div>
 
   <div class="page-wrapper">
+
+    <div class="quote">
+          <p>"Your illness does not define you. your strength and courage does"</p>
+        </div>
     <div class="slider">
       <div class="slide current">
+
         <div class="content">
-          <h1>About Us</h1>
+          <h1>Contributers:</h1>
           <p>
-            Our goal for The Genetic Ethnicity Website is to create a universal
-            ethnic classification system of genetic data in order to faciliate
-            treatment options and research in all fields of medicine.
+            Praveen Mogan
+            <br>
+            - designed back end
+            <br>
+            - managed database
+            <br>
+            <br>
+            Nathan Kevin Chen
+            <br>
+            - designed front end
+            <br>
+            - website design
           </p>
         </div>
       </div>
+      
       <div class="slide">
         <div class="content">
-          <h1>Mssion Statement</h1>
+          <h1>Long Term Goals:</h1>
           <p>
-            Bringing together humanity one gene at a time.
-          </p>
-        </div>
-      </div>
-      <div class="slide">
-        <div class="content">
-          <h1>Long Term Goals</h1>
-          <p>
-            -Create a universal list of mutations pertaining to every ethnicity
+            - Increase the accuracy of our predictions
+            <br>
+            - Establish a reputibility amonst patients and clinics as a preliminery diagnosis destination
           </p>
         </div>
       </div>
@@ -73,48 +83,38 @@
     <h1 class="web-title">List of Sources</h1>
     <div class="wrap">
       <div class="card">
-        <img src="img/cialogo.png" alt="cia logo" style="width:100%">
+        <div class="image-container">
+        <img src="img/kagglelogo.PNG" alt="kaggle logo" style="width:100%" onclick="location.href = 'https://www.kaggle.com/itachi9604/datasets';" id="image1">
+      </div>
         <div class="container">
-          <h3><b>US Central Intelligence</b></h3>
+          <h3><b>Kaggle</b></h3>
           <h4>Contributions:</h4>
-          <p>CIA population databse was 
-            utilized to calculate the 
-            world's ethnic composition 
-            and populations</p>
+          <p>The database from Pranay Patil was utilzied to create our backend in order to generate patient diagnosis.</p>
         </div>
       </div>
+      <span></span>
       <div class="card">
-        <img src="img/ClinGenlogo.png" alt="Clin Gen logo" style="width:100%">
+        <div class="image-container">
+        <img src="img/modellogo.PNG" alt="model logo" style="width:100%" onclick="location.href = 'https://free3d.com/3d-models/human';" id="image2">
+      </div>
         <div class="container">
-          <h3><b>Clinical Genome Resource</b></h3>
+          <h3><b>Free 3D</b></h3>
           <h4>Contributions:</h4>
-          <p>The genetic and ethnic data gathered by Clin Gen were utilized to create and test this website.</p>
+          <p>We utilized the default human model from Free 3D as part of our user interface for selecting symptoms.</p>
         </div>
       </div>
+      <span></span>
       <div class="card">
-        <img src="img/NIHlogo.png" alt="NIH logo" style="width:100%">
+        <div class="image-container">
+          <img src="img/threejs.png" alt="threejs logo" style="width:100%" onclick="location.href = 'https://threejs.org/';" id="image3">
+        </div>
         <div class="container">
-          <h3><b>National Institutes of Health</b></h3>
+          <h3><b>Three js</b></h3>
           <h4>Contributions:</h4>
-          <p>Research articles posted by the NIH helped to guide the direction and actions of the website.</p>
+          <p>We utilized the Three js library to contruct the 3d user interface in our diagnosis page.</p>
         </div>
       </div>
-      <div class="card">
-        <img src="img/Humanvariomelogo.png" alt="Human variome logo" style="width:100%">
-        <div class="container">
-          <h3><b>Human Variome Project</b></h3>
-          <h4>Contributions:</h4>
-          <p>The human variome project was a source of inspiration for this project</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="img/BRCAExchangelogo.png" alt="BRCA Exchange logo" style="width:100%">
-        <div class="container">
-          <h3><b>BRCA Exchange Project</b></h3>
-          <h4>Contributions:</h4>
-          <p>BRCA Exchange was the source of inspiration for this project.</p>
-        </div>
-      </div>
+      
     </div>
 
   </div>
@@ -125,26 +125,26 @@
 
   <footer class="footer">
       <div class="footer-content">
-        <div class="foot-section about">
-          <img src="img/weblogo.png">
-          <p>Our goal for The Genetic Ethnicity Website is to create a universal ethnic classification system of genetic data in order to faciliate treatment options and research in all fields of medicine.</p>
+        <div class="about">
+          <img src="img/Fulllogo.png">
+          <p>In light of the increasingly turbulent health care systems as a result of the global COVID-19 pandemic, Web Clinic attempts to bring the general population a platform for users to get near instantaneous diagnosis for any ailment.</p>
 
           <div class="contact">
-            <span><i class="fas fa-phone"></i>&nbsp;903-749-4453</span>
+            <span><i class="fas fa-phone"></i>&nbsp;</span>
             <br>
-            <span><i class="fas fa-envelope"></i>&nbsp;kchen.003292@gmail.com</span>
+            <span><i class="fas fa-envelope"></i>&nbsp;</span>
           </div>
         </div>
-        <div class="foot-section links" id="links">
+        <div class="links" id="links">
           <h2>Other pages</h2>
           <ul>
         
 
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="#">Input Data</a></li>
-            <li><a href="#">Genomics Database</a></li>
-            <li><a href="#">Log In</a></li>
+            <li ><a href="/">Diagnosis</a></li>
+            
+
           </ul>
         </div>
         
@@ -153,11 +153,11 @@
 
       </div>
       <div class="footer-bottom">
-        Copyright &copy; Ethnic Genomics Exchange | Designed by Nathan Kevin Chen
+        Copyright &copy; Web Clinic | Designed by Nathan Kevin Chen
       </div>
       
     </footer>
-
+    <script src="about.js"></script>
 
   </body>
 </html>

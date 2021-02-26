@@ -271,6 +271,330 @@ app.post('/', express.json(), (req,res)=>{
       agent.handleRequest(intentMap);  
 })
 
+app.put('/updatePrecautions', (req,res)=>{
+      let body = [];
+      req.on("data", (chunk) => {
+            body.push(chunk);
+      });
+      req.on("end", () => {
+            var newData;
+
+            if(body.length==0)
+            {
+                  res.statusCode = 404;
+                  res.end("No Body Attached or Incorrect Format."); 
+            }
+            else
+            {
+                  try {
+                        if(body.length>0)
+                        {
+                              newData = JSON.parse(body.toString()).data;
+                        }
+                        else{
+                              res.statusCode = 404;
+                              res.end("No Body Attached or Incorrect Format.");
+                        }
+                  } catch (err) {
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("No Body Attached or Incorrect Format.");
+                  }
+
+                  try {
+
+                        workbook.xlsx.readFile("./data/symptom_precaution.xlsx").then(() => {
+                              var worksheet = workbook.worksheets[0];
+
+                              var rowNumExcel = 2;
+
+                              newData.forEach((newRow) => {
+                                    
+                                    //todo: Set current Row to new Row
+                                    var row = worksheet.getRow(rowNumExcel);
+                                    
+                                    var tempCounter = 0;
+                                    row.eachCell(function(cell, colNumber) {
+
+                                          console.log('cell value: '+cell.value);
+
+                                          if(newRow[tempCounter]!=undefined)
+                                                row.getCell(colNumber).value = newRow[tempCounter];
+
+                                          row.commit();
+
+                                          console.log('new value: '+cell.value);
+
+                                          tempCounter++;
+                                    });
+
+                                    console.log("hi");
+                                    
+
+                                    
+
+                                    rowNumExcel++;
+                              });
+
+                              workbook.xlsx.writeFile('./data/symptom_precaution.xlsx');
+
+                              res.end("succesfully updated data");
+
+                              
+                        });
+                  } catch (err) {
+                        console.log("broken");
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("An error occured while processing your request.");
+                  }
+            }
+      });
+})
+
+app.put('/updateDescription', (req,res)=>{
+      let body = [];
+      req.on("data", (chunk) => {
+            body.push(chunk);
+      });
+      req.on("end", () => {
+            var newData;
+
+            if(body.length==0)
+            {
+                  res.statusCode = 404;
+                  res.end("No Body Attached or Incorrect Format."); 
+            }
+            else
+            {
+                  try {
+                        if(body.length>0)
+                        {
+                              newData = JSON.parse(body.toString()).data;
+                        }
+                        else{
+                              res.statusCode = 404;
+                              res.end("No Body Attached or Incorrect Format.");
+                        }
+                  } catch (err) {
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("No Body Attached or Incorrect Format.");
+                  }
+
+                  try {
+
+                        workbook.xlsx.readFile("./data/symptom_Description.xlsx").then(() => {
+                              var worksheet = workbook.worksheets[0];
+
+                              var rowNumExcel = 2;
+
+                              newData.forEach((newRow) => {
+                                    
+                                    //todo: Set current Row to new Row
+                                    var row = worksheet.getRow(rowNumExcel);
+                                    
+                                    var tempCounter = 0;
+                                    row.eachCell(function(cell, colNumber) {
+
+                                          console.log('cell value: '+cell.value);
+
+                                          if(newRow[tempCounter]!=undefined)
+                                                row.getCell(colNumber).value = newRow[tempCounter];
+
+                                          row.commit();
+
+                                          console.log('new value: '+cell.value);
+
+                                          tempCounter++;
+                                    });
+
+                                    console.log("hi");
+                                    
+
+                                    
+
+                                    rowNumExcel++;
+                              });
+
+                              workbook.xlsx.writeFile('./data/symptom_Description.xlsx');
+
+                              res.end("succesfully updated data");
+
+                              
+                        });
+                  } catch (err) {
+                        console.log("broken");
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("An error occured while processing your request.");
+                  }
+            }
+      });
+})
+
+app.put('/updateSeverity', (req,res)=>{
+      let body = [];
+      req.on("data", (chunk) => {
+            body.push(chunk);
+      });
+      req.on("end", () => {
+            var newData;
+
+            if(body.length==0)
+            {
+                  res.statusCode = 404;
+                  res.end("No Body Attached or Incorrect Format."); 
+            }
+            else
+            {
+                  try {
+                        if(body.length>0)
+                        {
+                              newData = JSON.parse(body.toString()).data;
+                        }
+                        else{
+                              res.statusCode = 404;
+                              res.end("No Body Attached or Incorrect Format.");
+                        }
+                  } catch (err) {
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("No Body Attached or Incorrect Format.");
+                  }
+
+                  try {
+
+                        workbook.xlsx.readFile("./data/Symptom-severity.xlsx").then(() => {
+                              var worksheet = workbook.worksheets[0];
+
+                              var rowNumExcel = 2;
+
+                              newData.forEach((newRow) => {
+                                    
+                                    //todo: Set current Row to new Row
+                                    var row = worksheet.getRow(rowNumExcel);
+                                    
+                                    var tempCounter = 0;
+                                    row.eachCell(function(cell, colNumber) {
+
+                                          console.log('cell value: '+cell.value);
+
+                                          if(newRow[tempCounter]!=undefined)
+                                                row.getCell(colNumber).value = newRow[tempCounter];
+
+                                          row.commit();
+
+                                          console.log('new value: '+cell.value);
+
+                                          tempCounter++;
+                                    });
+
+                                    console.log("hi");
+                                    
+
+                                    
+
+                                    rowNumExcel++;
+                              });
+
+                              workbook.xlsx.writeFile('./data/Symptom-severity.xlsx');
+
+                              res.end("succesfully updated data");
+
+                              
+                        });
+                  } catch (err) {
+                        console.log("broken");
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("An error occured while processing your request.");
+                  }
+            }
+      });
+})
+
+app.put('/updatePrediction', (req,res)=>{
+      let body = [];
+      req.on("data", (chunk) => {
+            body.push(chunk);
+      });
+      req.on("end", () => {
+            var newData;
+
+            if(body.length==0)
+            {
+                  res.statusCode = 404;
+                  res.end("No Body Attached or Incorrect Format."); 
+            }
+            else
+            {
+                  try {
+                        if(body.length>0)
+                        {
+                              newData = JSON.parse(body.toString()).data;
+                        }
+                        else{
+                              res.statusCode = 404;
+                              res.end("No Body Attached or Incorrect Format.");
+                        }
+                  } catch (err) {
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("No Body Attached or Incorrect Format.");
+                  }
+
+                  try {
+
+                        workbook.xlsx.readFile("./data/dataset.xlsx").then(() => {
+                              var worksheet = workbook.worksheets[0];
+
+                              var rowNumExcel = 2;
+
+                              newData.forEach((newRow) => {
+                                    
+                                    //todo: Set current Row to new Row
+                                    var row = worksheet.getRow(rowNumExcel);
+                                    
+                                    var tempCounter = 0;
+                                    row.eachCell(function(cell, colNumber) {
+
+                                          console.log('cell value: '+cell.value);
+
+                                          if(newRow[tempCounter]!=undefined)
+                                                row.getCell(colNumber).value = newRow[tempCounter];
+
+                                          row.commit();
+
+                                          console.log('new value: '+cell.value);
+
+                                          tempCounter++;
+                                    });
+
+                                    console.log("hi");
+                                    
+
+                                    
+
+                                    rowNumExcel++;
+                              });
+
+                              workbook.xlsx.writeFile('./data/dataset.xlsx');
+
+                              res.end("succesfully updated data");
+
+                              
+                        });
+                  } catch (err) {
+                        console.log("broken");
+                        console.log(err);
+                        res.statusCode = 404;
+                        res.end("An error occured while processing your request.");
+                  }
+            }
+      });
+})
+
 app.put('*', (req,res)=>{
       res.end('No put pathway created.');  
 })
@@ -559,6 +883,20 @@ app.get(["/home","/home.html"], (req,res)=>{
       });
 })
 
+app.get(["/chatbot","/chatbot.html"], (req,res)=>{
+      fs.readFile(startPath + "/chatbot.html", "utf-8", (err, data) => {
+            if (err) {
+                  console.log(err);
+                  res.redirect('/404');
+            }
+            else
+            {
+                  res.writeHead(200, { "Content-type": "text" });
+                  res.end(data);
+            }
+      });
+})
+
 app.get(["/about","/about.html"], (req,res)=>{
       fs.readFile(startPath + "/about.html", "utf-8", (err, data) => {
             if (err) {
@@ -615,7 +953,7 @@ app.get(/\.(css)$/i, (req,res)=>{
       }); 
 })
 
-app.get(/\.(jpg|jpeg|png|gif)$/i, (req,res)=>{
+app.get(/\.(jpg|jpeg|png|gif|mp4|ogg)$/i, (req,res)=>{
 
       console.log(req.originalUrl);
 

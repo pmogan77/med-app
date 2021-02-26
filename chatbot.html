@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Web Clinic - Chatbot</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link rel="stylesheet" href="chatbot.css" />
+    <link rel="shortcut icon" href="img/web-shortcut.png" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href='/home'><img src="img/Fulllogo.png" alt="logo" class="logo" /></a>
+
+            <nav id="navbar">
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/">Diagnosis</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class = "chatbotContainer">
+        <iframe allow="microphone;" width="350" height="480"
+            src="https://console.dialogflow.com/api-client/demo/embedded/f8119575-bc15-4273-b381-3b029603e708">
+        </iframe>
+
+        <a href="https://assistant.google.com/services/a/uid/0000006f6a7439c5?hl=en" target="_blank">Get the mobile version of the assistant.</a>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="about">
+                <img src="img/Fulllogo.png" />
+                <p>
+                    In light of the increasingly turbulent health care systems as a
+                    result of the global COVID-19 pandemic, Web Clinic attempts to bring
+                    the general population a platform for users to get near
+                    instantaneous diagnosis for any ailment.
+                </p>
+
+                <div class="contact">
+                    <span><i class="fas fa-phone"></i>&nbsp;</span>
+                    <br />
+                    <span><i class="fas fa-envelope"></i>&nbsp;</span>
+                </div>
+            </div>
+            <div class="links" id="links">
+                <h2>Other pages</h2>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/">Diagnosis</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &copy; Web Clinic | Designed by Nathan Kevin Chen
+        </div>
+    </footer>
+</body>
+
+</html>
