@@ -26,9 +26,9 @@ button {
 	text-transform: uppercase;
 }
 
-/*CSS for the navigation bar*/
 header{
-  background: #4cacd4;
+  height: 65px;
+  background-color: white;
 }
 header::after{
 
@@ -37,13 +37,15 @@ header::after{
   clear:both;
 }
 .logo{
-  padding-top:5px;
+  margin-top:7.5px;
   height: 50px;
   width: auto;
   float: left;
 }
 nav{
+  margin-top:18.25px;
   float: right;
+  
 }
 nav h1{
   display: inline-block;
@@ -51,17 +53,20 @@ nav h1{
   float: left;
 }
 nav ul{
+  
+  padding-top: auto;
+  padding-bottom: auto;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 nav li{
+
   display: inline-block;
-  padding-top: 11px;
+  
   margin-left:50px; 
   margin-right: 20px;
 
-  position: relative;
 }
 
 nav a{
@@ -76,6 +81,7 @@ nav a:hover{
   color: #000;
   text-decoration: underline;
 }
+
 
 #info {
 	position: absolute;
@@ -162,44 +168,47 @@ label {
 
 
 .footer {
-  
+  border-top: 2px solid;
+  border-color: #343A40;
    position: absolute;
    left:0px;
-   
-   
-   height:350px;
    width:100%;
-   background:#4cacd4;
-   
-   position: relative;
-
-
+   background:white;
 }
+
 .footer .footer-content{
-  position: absolute;
-  
-  color: white;
-
+  color: #343A40;
   font: "Raleway";
-  font-size: 15px;
-  height:350px;
+   font-size: 15px;
   display: flex;
+  flex-direction: horizontal;
 }
-.footer .footer-content .foot-section{
+.links{
+
   
+  padding:25px;
+  
+  text-align: center;
+  width: 50%;
+
+}
+.about{
+  
+  padding:25px;
   flex:1;
   text-align: center;
+  width: 40%;
 
 }
 
-.footer .footer-content .foot-section img{
+.about img{
   height: 50px;
   width: auto;
 
 }
 #links a{
   font: "Raleway";
-   color: white;
+  color: #343A40;
   text-decoration: none;
   text-transform: uppercase;
   padding-left: 2px;
@@ -208,20 +217,17 @@ label {
 
 #links a:hover{
   font: "Raleway";
-  color: #000;
-  text-decoration: underline;
+    text-decoration: underline;
 }
 .footer .footer-bottom{
-  background-color: #4cacd4;
+  background-color: #4eb4d6;
   height: 50px;
   width:100%;
   text-align: center;
   position: absolute;
-  bottom:0px;
+  
   left: 0px;
   padding-top:20px;
-  size: 10px;
-  color: white;
 }
 
 #container{
