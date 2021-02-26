@@ -855,7 +855,7 @@ app.get('/diseasePredictionData',(req,res)=>{
       });
 })
 
-app.get(["/","/index.html","/index"], (req,res)=>{
+app.get(["/diagnosis","/diagnosis.html"], (req,res)=>{
       fs.readFile(startPath + "/index.html", "utf-8", (err, data) => {
             if (err) {
                   console.log(err);
@@ -869,7 +869,7 @@ app.get(["/","/index.html","/index"], (req,res)=>{
       });
 })
 
-app.get(["/home","/home.html"], (req,res)=>{
+app.get(['/','/index.html','/index',"/home","/home.html"], (req,res)=>{
       fs.readFile(startPath + "/home.html", "utf-8", (err, data) => {
             if (err) {
                   console.log(err);
