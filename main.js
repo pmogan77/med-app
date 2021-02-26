@@ -88,6 +88,9 @@ let webConsole = document.getElementById("console");
 
 /* Register click event with the container element */
 
+//Number of Generated Diagnosis
+const numDiagnosis = 25;
+
 init();
 
 function init() {
@@ -692,21 +695,73 @@ function generateDiagnosis() {
 document.querySelector("#simpleModal2 > div > div.modal-header > button").addEventListener('click', () =>{
 	console.log(customSymptomList);
 
-	customSymptomList;
-
-	console.log(customSymptomList);
-
+	document.getElementById('modalContainer3')?.remove();
 	
-	fetch('/additionalInfo', {method: 'POST', body: 'Malaria'}).then((resBuffer) =>{
-		resBuffer.json().then(res =>{
-			console.log(res);
-		})
-	})
-	
+	// fetch('/additionalInfo', {method: 'POST', body: 'Malaria'}).then((resBuffer) =>{
+	// 	resBuffer.json().then(res =>{
+	// 		console.log(res);
+	// 	})
+	// })
+
+	//todo: edit here
+
+
+	var thirdModal = `<div id="modalContainer3">
+	<div id="simpleModal3" class="modal3">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Generated Diagnosis</h2>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tbody id="tableBody">
+						<tr><td><div class="lds-ripple"><div></div><div></div></div></td></tr>
+						<tr><td>Loading data...</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+
+			</div>
+		</div>
+	</div>`;
+
+	document.getElementById('modalContainer2').insertAdjacentHTML('afterend', thirdModal);
 
 	fetch('/generalInfo', {method: 'POST', body: JSON.stringify({data:customSymptomList})}).then((resBuffer) =>{
 		resBuffer.json().then(res =>{
-			console.log(res);
+			document.querySelector('#simpleModal3 > div > div.modal-body #tableBody ').innerHTML = '';
+
+			for (let i = 0; i < numDiagnosis; i++) {
+				// var template = '<tr><td>{%PREDICTION%}</td></tr>';
+				const element = res.diseasePrediction[i];
+
+				// template = template.replace('{%PREDICTION%}',element.condition+' ('+element.score+')');
+
+				// console.log(template);
+
+				// document.querySelector('#simpleModal3 > div > div.modal-body').insertAdjacentHTML('beforeend', template);
+
+
+				var table = document.querySelector('#simpleModal3 > div > div.modal-body');
+
+
+				var tr = document.createElement("TR");
+
+				var td = document.createElement("TD");
+				td.appendChild(document.createTextNode(element.condition+' ('+element.score+')'));
+				tr.appendChild(td);
+
+				td = document.createElement("TD");
+
+				table.appendChild(tr);
+
+
+
+			
+		}
+			
+
 		})
 	})
 })
