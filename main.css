@@ -298,7 +298,6 @@ label {
   top: 50%;
   width: 50%;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
-  
 }
 
 .modal3 .modal-header{
@@ -407,6 +406,7 @@ label {
 .modal3 tr{
   display: flex;
   justify-content: center;
+  cursor: help !important;
 }
 
 
@@ -453,4 +453,22 @@ label {
     height: 72px;
     opacity: 0;
   }
+}
+
+.tooltip{
+  max-width: 400px;
+  background-color: rgba(5, 5, 5, 0.5);
+  transform: translate(150px, 0px);
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  color: white;
+
+  position: absolute;
+  top: 75%;
+  text-align: center;
+  z-index: 100;
+  display:block;
+  left:55%;
 }

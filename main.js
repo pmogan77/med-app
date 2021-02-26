@@ -733,15 +733,7 @@ document.querySelector("#simpleModal2 > div > div.modal-header > button").addEve
 			document.querySelector('#simpleModal3 > div > div.modal-body #tableBody ').innerHTML = '';
 
 			for (let i = 0; i < numDiagnosis; i++) {
-				// var template = '<tr><td>{%PREDICTION%}</td></tr>';
 				const element = res.diseasePrediction[i];
-
-				// template = template.replace('{%PREDICTION%}',element.condition+' ('+element.score+')');
-
-				// console.log(template);
-
-				// document.querySelector('#simpleModal3 > div > div.modal-body').insertAdjacentHTML('beforeend', template);
-
 
 				var table = document.querySelector('#simpleModal3 > div > div.modal-body');
 
@@ -752,14 +744,56 @@ document.querySelector("#simpleModal2 > div > div.modal-header > button").addEve
 				td.appendChild(document.createTextNode(element.condition+' ('+element.score+')'));
 				tr.appendChild(td);
 
-				td = document.createElement("TD");
+				tr.addEventListener("mouseenter", (event)=>{
+					//console.log("Hovered over: "+event.target.innerText.split(' (')[0]);
 
-				table.appendChild(tr);
+					var toolTip = '<div class="tooltip">Loading Disease Information...</div>';
+
+					document.querySelector('#modalContainer3').insertAdjacentHTML('afterend',toolTip);
+
+					var innerText = event.target.innerText;
+
+					event.target.style.backgroundColor = '#4cacd4';
 
 
+					fetch('/additionalInfo', {method: 'POST', body: innerText.substring(0,innerText.lastIndexOf(' ('))}).then((resBuffer) =>{
+						resBuffer.json().then(res =>{
 
-			
-		}
+							var precautionSent = '';
+
+							for (let i = 0; i < res.precautions.length; i++) {
+								if(i==res.precautions.length-1)
+								{
+									precautionSent+=(res.precautions[i]+'.');
+								}
+								else if(i==res.precautions.length-2)
+								{
+									precautionSent+=(res.precautions[i]+', and ');
+								}
+								else
+								{
+									precautionSent+=(res.precautions[i]+', ');
+								}
+								
+							}
+
+							if(document.querySelector('.tooltip'))
+								document.querySelector('.tooltip').innerText='Description: '+res.diseaseDesc+'\nPrecuations include: '+precautionSent;
+						})
+					})
+
+
+					
+				})
+
+				tr.addEventListener("mouseleave", (event)=>{
+					//console.log("Left: "+event.target.innerText);
+					document.querySelector('.tooltip')?.remove();
+					event.target.style.backgroundColor = 'white';
+				})
+
+				table.appendChild(tr);	
+			}
 			
 
 		})
