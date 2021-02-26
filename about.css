@@ -266,18 +266,17 @@ nav a:hover{
 .quote{
   border: 2px solid;
   position: absolute;
-  top: calc(950px-100vw);
   right: 10%;
   font-size: 30px;
   opacity: 1;
   width: 30%;
-
   
   
   color: white;
   padding: 35px;
   font-weight: 200;
   text-align: center;
+  z-index: 1;
 }
 
 .slide .content h1 {
