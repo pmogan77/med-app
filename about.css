@@ -150,16 +150,19 @@ nav a:hover{
 .image-container #image1{
   
   margin-top: 38.205px;
+  cursor: pointer;
   
 }
 .image-container #image2{
   
   margin-top: 56.965px;
+  cursor: pointer;
   
 }
 .image-container #image3{
   
   margin-top: 44.505px;
+  cursor: pointer;
   
 }
 
