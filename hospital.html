@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Web Clinic - Hospital</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" href="hospital.css" />
+    <link rel="shortcut icon" href="img/web-shortcut.png" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href='/'><img src="img/Fulllogo.png" alt="logo" class="logo" /></a>
+
+            <nav id="navbar">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/diagnosis">Diagnosis</a></li>
+                    <li><a href="/chatbot">Chatbot</a></li>
+                    <li><a href="/hospital">Hospital</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class = "contentContainer">
+
+        <!-- <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Names</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+            </tbody>
+          </table> -->
+
+
+
+        <form>
+            <input id = "location_field" type="text" class="location_input" name = "location_field" placeholder="Enter Location..." required>
+            <input id = "radius_field" type="text" class="radius_input" name = "radius_field" placeholder="Enter Radius (meters)..." required>
+            <input type="submit" value="Submit" style="border-color: white;">
+        </form>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="about">
+                <img src="img/Fulllogo.png" />
+                <p>
+                    In light of the increasingly turbulent health care systems as a
+                    result of the global COVID-19 pandemic, Web Clinic attempts to bring
+                    the general population a platform for users to get near
+                    instantaneous diagnosis for any ailment.
+                </p>
+
+                <div class="contact">
+                    <span><i class="fas fa-phone"></i>&nbsp;</span>
+                    <br />
+                    <span><i class="fas fa-envelope"></i>&nbsp;</span>
+                </div>
+            </div>
+            <div class="links" id="links">
+                <h2>Other pages</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/diagnosis">Diagnosis</a></li>
+                    <li><a href="/chatbot">Chatbot</a></li>
+                    <li><a href="/hospital">Hospital</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &copy; Web Clinic | Designed by Nathan Kevin Chen
+        </div>
+    </footer>
+
+
+    <script>
+        document.querySelector('input[type=submit]').addEventListener('click', e => {
+            e.preventDefault();
+
+            var location = document.querySelector('.location_input').value;
+            location = location.replace(/ /g,"%20");
+
+            var radius = document.querySelector('.radius_input').value;
+
+            document.querySelector('.contentContainer').innerHTML='';
+
+            var loadingHTML = `<div class="loadingContainer"><div class="lds-ripple"><div></div><div></div></div><div class="loading">Parsing Gelocation Data...</div></div>`;
+
+            document.querySelector('.contentContainer').insertAdjacentHTML('beforeend', loadingHTML);
+
+
+
+
+            const numberOfResults = 25;
+            const apiKey = 'xxVJBGzXvNIr2JojA6obgnayGerG6oCB';
+
+            fetch(`https://api.tomtom.com/search/2/geocode/${location}.json?key=${apiKey}`).then(res => {
+                res.json().then(data =>{
+
+                    if(data.results.length==0)
+                    {
+                        window.alert('Unable to Locate');
+                        window.location.replace('/hospital');
+                    }
+
+                    document.querySelector('.loading').innerText='Finished Geolocating Location...';
+                    var coord = data.results[0].position;
+
+
+                    var hospitalLocater = `https://api.tomtom.com/search/2/categorySearch/.json?limit=${numberOfResults}&lat=${coord.lat}&lon=${coord.lon}&radius=${radius}&categorySet=7391&key=${apiKey}`;
+
+                    document.querySelector('.loading').innerText='Locating Nearby Location...';
+
+                    fetch(hospitalLocater).then(res =>{
+                        res.json().then(data2 =>{
+
+                            document.querySelector('.loading').innerText='Finished Locating Nearby Hospitals...';
+
+                            document.querySelector('.contentContainer').innerHTML=`<table class="table table-bordered table-hover"><thead><tr><th scope="col">#</th><th scope="col">Names</th><th scope="col">Address</th><th scope="col">Phone Number</th><th scope="col">Website</th></tr></thead><tbody></tbody></table>`;
+
+
+                            var number = 1;
+                            data2.results.forEach(element => {
+
+                                var name = element.poi.name;
+                                var phone = element.poi.phone;
+                                var address = element.address.freeformAddress;
+                                var website = element.poi.url;
+
+                                
+
+                                if(typeof website !=='undefined'){
+                                    if(!website.includes("http")||!website.includes("www"))
+                                    {
+                                        website = 'https://'+website;
+                                    }
+                                }
+                                else{
+                                    //console.log(number);
+                                }
+
+                                website = website == null?'#':website;                                 
+
+                                var googleURL = 'https://www.google.com/maps/dir/';
+
+                                location = location.replace(/%20/g,"+");
+
+                                console.log('your loc: '+location);
+
+                                var destination = address.replace(/ /g,"+");
+
+                                var addressLink = googleURL+location+'/'+destination;
+
+
+                                var text;
+
+                                if(website=='#')
+                                {
+                                    text = `<tr><th scope="row">${number}</th><td>${name}</td><td><a href="${addressLink}" target="_blank">${address}</a></td><td>${phone}</td><td>No Website</td></tr>`;
+                                
+                                }
+                                else{
+                                    text = `<tr><th scope="row">${number}</th><td>${name}</td><td><a href="${addressLink}" target="_blank">${address}</a></td><td>${phone}</td><td><a href="${website}" target="_blank">Link</a></td></tr>`;                   
+                                }
+
+                                
+                                document.querySelector('tbody').insertAdjacentHTML('beforeend', text);
+
+                                // document.querySelector('tbody').lastChild.addEventListener('click', e =>{
+
+                                    // var googleURL = 'https://www.google.com/maps/dir/';
+
+                                    // location = location.replace(/%20/g,"+");
+
+                                    // console.log('your loc: '+location);
+
+                                    // console.log(e.target);
+
+                                    // var destination = e.target.innerHTML;
+                                    
+
+                                    // destination = destination.replace(/ /g,"+");
+
+                                    // console.log(destination);
+
+                                    // window.open(googleURL+location+'/'+destination);
+                                // })
+
+                                number++;
+                            });
+
+                        })
+                    })
+
+                })
+            })
+
+            console.log(location);
+
+        })
+
+    </script>
+
+</body>
+
+</html>

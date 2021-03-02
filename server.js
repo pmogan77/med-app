@@ -883,6 +883,20 @@ app.get(['/','/index.html','/index',"/home","/home.html"], (req,res)=>{
       });
 })
 
+app.get(["/hospital","/hospital.html"], (req,res)=>{
+      fs.readFile(startPath + "/hospital.html", "utf-8", (err, data) => {
+            if (err) {
+                  console.log(err);
+                  res.redirect('/404');
+            }
+            else
+            {
+                  res.writeHead(200, { "Content-type": "text" });
+                  res.end(data);
+            }
+      });
+})
+
 app.get(["/chatbot","/chatbot.html"], (req,res)=>{
       fs.readFile(startPath + "/chatbot.html", "utf-8", (err, data) => {
             if (err) {
